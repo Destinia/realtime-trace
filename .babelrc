@@ -1,0 +1,36 @@
+{
+  "presets": ["react", "es2015", "stage-0", "flow"],
+  "env": {
+    "production": {
+      "plugins": [
+        "dev-expression",
+        ["transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }]
+      ]
+    },
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel",
+        ["transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }]
+      ]
+    },
+    "test": {
+      "plugins": [
+        [
+          "webpack-loaders",
+          {
+            "config": "./webpack.config.test.js",
+            "verbose": false
+          }
+        ]
+      ]
+    }
+  }
+}
