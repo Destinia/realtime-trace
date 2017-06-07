@@ -10,7 +10,7 @@ module.exports = merge(base, {
   devtool: 'cheap-module-source-map',
   entry: './src/index',
   output: {
-    path: path.join(__dirname, '..', 'server', 'public'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle-[hash].js',
     publicPath: '/static/',
   },

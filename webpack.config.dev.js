@@ -16,7 +16,7 @@ module.exports = merge(base, {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: `http://localhost:${port}/static/`,
+    publicPath: `http://localhost:${port}/static`,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

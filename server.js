@@ -14,6 +14,7 @@ const app = express();
 const dashboard = new Dashboard();
 const compiler = webpack(config);
 
+
 compiler.apply(new DashboardPlugin(dashboard.setData));
 
 app.use(require('webpack-dev-middleware')(compiler, {

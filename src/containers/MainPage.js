@@ -1,17 +1,20 @@
+import Main from '../components/Main';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
-import * as HotNewsActions from '../actions/hotNews';
-import * as CommentsActions from '../actions/comments';
+import asyncProps from 'async-update-props';
 
+import * as PredictionActions from '../actions/prediction';
 
-const mapStateToProps = (state) => ({
-  hotNews: state.hotNews,
-  board: state.board,
-  comments: state.comments,
+const mapStateToProps = state => ({
+  prediction: state.prediction,
 });
 
 
 export default compose(
-  connect(mapStateToProps, { ...HotNewsActions, ...CommentsActions })
+  connect(mapStateToProps, { ...PredictionActions }),
 )(Main);
+
+
+// export default compose(
+//   connect(mapStateToProps, { ...HotNewsActions, ...CommentsActions })
+// )(Main);

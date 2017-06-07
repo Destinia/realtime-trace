@@ -8,7 +8,8 @@
         {
           "polyfill": false,
           "regenerator": true
-        }]
+        }],
+        "transform-decorators-legacy"
       ]
     },
     "development": {
@@ -18,7 +19,8 @@
         {
           "polyfill": false,
           "regenerator": true
-        }]
+        }],
+        "transform-decorators-legacy"
       ]
     },
     "test": {
@@ -29,7 +31,8 @@
             "config": "./webpack.config.test.js",
             "verbose": false
           }
-        ]
+        ],
+        "transform-decorators-legacy"
       ]
     }
   }

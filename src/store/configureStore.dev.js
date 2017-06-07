@@ -5,7 +5,9 @@ import createLogger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import rootReducer from '../reducers';
+import { firebaseConfig } from '../config/config';
 
 
 const logger = createLogger({
@@ -25,7 +27,8 @@ const configureStore = (preloadedState) => {
     rootReducer,
     preloadedState,
     compose(
-      applyMiddleware(thunk, saga, router, logger),
+      applyMiddleware(thunk, saga, router, logger, thunk.withExtraArgument(getFirebase)),
+      reactReduxFirebase(firebaseConfig, { userProfile: 'users' }),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
