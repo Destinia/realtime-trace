@@ -48,6 +48,13 @@
   display: inline-block;
 }
 
+.buttonContainer {
+  
+  button {
+    margin: 10px;
+  }
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);

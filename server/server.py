@@ -51,6 +51,25 @@ def api_location():
         return jsonify(ret)
     return {}
 
+@app.route('/api/prediction/traindata', methods=['POST'])
+def add_trained_data():
+    req = request.get_json()
+    model.save_trained_data(req)
+    return jsonify({ 'success': True })
+
+
+@app.route('/api/prediction/test', methods=['POST'])
+def test():
+    req = request.get_json()
+    ret = model.test_save_data(req)
+    return jsonify(ret)
+
+@app.route('/api/prediction/reset', methods=['DELETE'])
+def reset():
+    model.reset()
+    return jsonify({'success': True})
+    
+
 if __name__ == "__main__":
     app.run(port=3001, host='0.0.0.0', debug=True)
 

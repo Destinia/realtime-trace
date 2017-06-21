@@ -22,6 +22,8 @@ class FusionModel(object):
     def __init__(self):
         self.prev_loc = None
         self.model = RandomForestRegressor(n_estimators=20, max_depth=4, n_jobs=-1)
+        self.train_data = []
+        self.train_label = []
 
     def get_feature(self, data):
         def get_data(d):
@@ -96,6 +98,36 @@ class FusionModel(object):
         for i, r in enumerate(predict_loc[1:]):
             ret[test_time_stamp[i]] = {'Lon': r[0], 'Lat': r[1]}
         return ret
-
+    
+    def save_trained_data(self, data):
+        prev_loc = None
+        for k, v in data.items():
+            if prev_loc:
+                self.train_data.append((self.get_feature(v)))
+                self.train_label.append((self.get_label(v, prev_loc)))
+            prev_loc = {'Lon': v['Lon'], 'Lat': v['Lat']}
             
-        
+    def test_save_data(self, data):
+        prev_loc = None
+        test_data = []
+        test_time_stamp = []
+        for k, v in data.items():
+            if prev_loc:
+                test_data.append((self.get_feature(v)))
+            test_time_stamp.append(k)
+            prev_loc = {'Lon': v['Lon'], 'Lat': v['Lat']}
+        self.model.fit(self.train_data, self.train_label)
+        result = self.model.predict(test_data)
+        predict_loc = [(data[test_time_stamp[0]]['Lon'],data[test_time_stamp[0]]['Lat'])]
+        for i, r in enumerate(result):
+            if i !=0:
+                predict_loc.append((r[0] * 1e-5 + predict_loc[-1][0],
+                                    r[1] * 1e-5 + predict_loc[-1][1]))
+        ret = dict()
+        for i, r in enumerate(predict_loc):
+            ret[test_time_stamp[i]] = {'Lon': r[0], 'Lat': r[1]}
+        return ret
+    def reset(self):
+        self.model = RandomForestRegressor(n_estimators=20, max_depth=4, n_jobs=-1)
+        self.train_data = []
+        self.train_label = []
