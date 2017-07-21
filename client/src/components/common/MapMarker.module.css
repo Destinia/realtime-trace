@@ -3,6 +3,7 @@ $width: 28.56px;
 
 .marker {
   position: absolute;
+  cursor: pointer;
   font-size: 2px;
   color: red;
   left: calc(-$width / 2);

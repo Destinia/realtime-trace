@@ -49,41 +49,11 @@ class Main extends Component {
     super();
     this.state = {
       hover: '',
-      startTime: '',
-      endTime: '',
     };
   }
 
   handleMarkerClick = (time) => () => {
     this.setState({ hover: time });
-    if (!this.state.startTime) {
-      this.setState({ startTime: time });
-    } else {
-      this.setState({ endTime: time });
-    }
-  }
-
-  handleAddBtnClick = () => {
-    if (!(this.state.startTime || this.state.endTime)) return;
-    const data = Object.keys(this.props.data).filter(
-        this.checkTimeInSelect).reduce((prev, k) => ({ ...prev, [k]: this.props.data[k] }), {});
-    this.props.updatePredictionDataRequest(data);
-    this.setState({ startTime: '', endTime: '' });
-  }
-
-  handleTestBtnClick = () => {
-    if (!(this.state.startTime || this.state.endTime)) return;
-    const data = Object.keys(this.props.data).filter(
-      this.checkTimeInSelect).reduce((prev, k) => ({ ...prev, [k]: this.props.data[k] }), {});
-    this.props.testPredictionRequest(data);
-  }
-
-  handleClearBtnClick = () => {
-    this.setState({ startTime: '', endTime: '' });
-  }
-
-  handleResetBtnClick = () => {
-    this.props.resetPredictionRequest();
   }
 
   checkTimeInSelect = (time) => {
@@ -105,7 +75,7 @@ class Main extends Component {
 
 
   render() {
-    const { data, prediction } = this.props;
+    const { data } = this.props;
     const locations = isLoaded(data) ? this.props.data : {};
     const hoverData = locations[this.state.hover];
     return (
@@ -123,16 +93,8 @@ class Main extends Component {
           <div className={styles.mapContainer}>
             <GoogleMap>
               {
-                Object.keys(locations).filter(key => this.checkTimeInSelect(key)).map(key =>
-                  this.renderMapMarker(locations[key], key, 'yellow'))
-              }
-              {
-                Object.keys(locations).filter(key => !this.checkTimeInSelect(key)).map(key =>
+                Object.keys(locations).map(key =>
                   this.renderMapMarker(locations[key], key, 'green'))
-              }
-              {
-                Object.keys(prediction).map((key) =>
-                  this.renderMapMarker(prediction[key], key, 'blue'))
               }
             </GoogleMap>
           </div>
