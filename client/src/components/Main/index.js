@@ -104,61 +104,6 @@ class Main extends Component {
   }
 }
 
-/*const TodoItem = ({ todo }) => (
-  <div>{JSON.stringify(todo)}</div>
-);
-
-@firebaseConnect([
-  { path: '/todos' }, // object notation
-])
-@connect(
-  ({ firebase }) => ({
-    // Connect todos prop to firebase todos
-    todos: dataToJS(firebase, '/todos'),
-  })
-)
-export default class Main extends Component {
-  static propTypes = {
-    todos: PropTypes.object,
-    firebase: PropTypes.object
-  }
-
-  render() {
-    const { firebase, todos } = this.props;
-
-    // Add a new todo to firebase
-    const handleAdd = () => {
-      const {newTodo} = this.refs
-      console.log(this.props);
-      firebase.push('/todos', { text:newTodo.value, done:false })
-      newTodo.value = ''
-    }
-
-    // Build Todos list if todos exist and are loaded
-    const todosList = !isLoaded(todos)
-      ? 'Loading'
-      : isEmpty(todos)
-        ? 'Todo list is empty'
-        : Object.keys(todos).map(
-            (key, id) => (
-              <TodoItem key={key} id={id} todo={todos[key]}/>
-            )
-          )
-
-    return (
-      <div>
-        <h1>Todos</h1>
-        <ul>
-          {todosList}
-        </ul>
-        <input type="text" ref="newTodo" />
-        <button onClick={handleAdd}>
-          Add
-        </button>
-      </div>
-    )
-  }
-}*/
 
 
 Main.propTypes = {
